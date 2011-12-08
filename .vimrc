@@ -46,9 +46,6 @@ endif
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -73,14 +70,13 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
-
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
 
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-
+  
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -165,7 +161,7 @@ endfunction
 " GRB: use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
 
-set wildignore+=*.o,*.obj,.git,public/system/**
+set wildignore+=*.o,*.obj,.git,public/system/**,tmp/**,*.log,*.sqlite3
 
 " GRB: Put useful info in status line
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
@@ -336,7 +332,6 @@ augroup END
 set switchbuf=useopen
 
 autocmd BufRead,BufNewFile *.html source ~/.vim/indent/html_grb.vim
-autocmd FileType htmldjango source ~/.vim/indent/html_grb.vim
 autocmd! BufRead,BufNewFile *.sass setfiletype sass 
 
 " Map ,e and ,v to open files in the same directory as the current file
@@ -433,6 +428,9 @@ augroup END
 set makeprg=python\ -m\ nose.core\ --machine-out
 
 map <silent> <leader>y :<C-u>silent '<,'>w !pbcopy<CR>
+map <leader>F :Ack<space>
+" map <C-H> <ESC>:tabprev<CR> 
+" map <C-L> <ESC>:tabnext<CR>
 
 " Make <leader>' switch between ' and "
 nnoremap <leader>' ""yls<c-r>={'"': "'", "'": '"'}[@"]<cr><esc>
@@ -487,7 +485,7 @@ function! RunTests(filename)
         if filereadable("script/test")
             exec ":!script/test " . a:filename
         elseif filereadable("Gemfile")
-            exec ":!bundle exec rspec --color " . a:filename
+            exec ":!bundle exec rspec --color --drb " . a:filename
         else
             exec ":!rspec --color " . a:filename
         end
@@ -597,10 +595,14 @@ imap <c-c> <esc>
 
 command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
 
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
+noremap <Left> <c-w><Left>
+noremap <Right> <c-w><Right> 
+noremap <Up> <c-w><Up>
+noremap <Down> <c-w><Down>
+noremap <S-Left> <c-w>H
+noremap <S-Right> <c-w>L
+noremap <S-Up> <c-w>K
+noremap <S-Down> <c-w>J
 
 function! PromoteToLet()
   :normal! dd
