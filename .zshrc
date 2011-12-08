@@ -21,6 +21,7 @@ alias ll='ls -lG'
 alias duh='du -csh'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
+alias vim='mvim -v'
 
 # Unbreak history
 export HISTSIZE=100000
