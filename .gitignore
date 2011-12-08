@@ -110,8 +110,10 @@
 .bash_profile
 .bundler-exec.sh
 .cheat/
+.GalleryRemote
 .git-completion.bash
 .gvimrc
+.irbrc
 .local/
 .pow
 .profile
