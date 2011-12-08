@@ -35,3 +35,6 @@
 [submodule ".vim/bundle/ruby-matchit"]
 	path = .vim/bundle/ruby-matchit
 	url = https://github.com/vim-scripts/ruby-matchit.git
+[submodule ".vim/bundle/vim-ragtag"]
+	path = .vim/bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag.git
